@@ -1,0 +1,609 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+html {
+    height: auto;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.clear{
+    clear: both;
+    width: 100%;
+    height: 1px;
+    line-height: 1px;
+    float: none;
+}
+body
+{
+	font-family: 'Open Sans', Sans-Serif !important;  
+	height: auto;
+}
+.wrapper
+{
+    position: relative;
+	height: auto;
+}
+input[type="button"], input[type="submit"], button, #controls button{
+    cursor: pointer;
+	font-weight: bold;
+}
+
+/***********************
+          Header
+***********************/
+#header {
+    text-align: center;
+    padding-top: 20px;
+    background-color: #eee;
+    position: relative;
+}
+header #logo{
+	margin: 10px 0;
+}
+header .leftIconsHeader{
+	position: absolute;
+	top: 40px;
+}
+header .settings, header .logout, header .information {
+    float: left;
+    margin-left: 10px;
+    padding: 5px;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+}
+header .settings{
+	background-position: 0 -320px;
+}
+header .settings:hover {
+    background-position: 0 -634px;
+}
+header .logout{
+	background-position: 0 -503px;
+}
+header .logout:hover{
+	background-position: 0 -665px;
+}
+header .information{
+	background-position: 0 -414px;
+}
+header .information:hover {
+    background-position: 0 -696px;
+}
+header .leftIconsHeader #currentUser{
+	    display: block;
+    padding-top: 30px;
+    text-align: left;
+    margin-left: 14px;
+    font-size: 13px;
+}
+header .settings ul{
+    display: none;
+    position: fixed;
+    top: 31px;
+	left: 36px;
+    text-align: left;
+    background-color: #fff;
+    /*padding: 5px;
+    border: 1px solid #ccc;*/
+    box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.3);
+	padding: 0 10px;
+    border-radius: 8px;
+}
+header .settings ul:hover{
+    display: block;
+}
+header .settings ul li{
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    padding: 10px 0;
+}
+header .settings ul li:last-child{
+    margin-bottom: 0;
+    border:none;
+}
+header .settings:hover ul{
+    display:block;
+}
+header ul.mainMenu
+{
+    text-align: center;
+    background-color: #494848;
+    color: #c0c0c0;
+    margin-bottom: 0;
+}
+header ul.mainMenu li
+{
+    display: inline-block;
+    padding: 30px;
+    cursor: pointer;
+    margin-right: 10px;
+	font-size: 20px;
+}
+header ul.mainMenu li:hover, header ul.mainMenu li.active
+{
+    color: #fff;
+}
+header ul.mainMenu li.active
+{
+    font-weight: bold;
+	background-color: #5092bd; 
+	
+}
+/*header ul.mainMenu li:hover, .row:hover, .row.even:hover
+{
+    background-color: #757575;
+}*/
+header ul.mainMenu li:last-child
+{
+    margin-right: 0;
+}
+
+/***********************
+          Sub Menu
+***********************/
+.subMenu
+{
+    background-color: #5092bd;
+    width: 100%;
+    padding: 10px 0;
+}
+.subMenu span
+{
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    margin: 0 5px;
+    cursor: pointer;
+    vertical-align: middle;
+
+}
+.subMenu .new{
+    background-position: 0 -58px;
+}
+.subMenu .new:hover{
+    background-position: 0 -538px;
+}
+.subMenu .delete{
+    background-position: 0 -384px;
+}
+.subMenu .dueDateFeedback{
+    background-position: 0 -471px;
+}
+.subMenu .dueDateFeedback:hover{
+    background-position: 0 -602px;
+}
+.subMenu .sort{
+    background-position: 0 -176px;
+    display: none;
+}
+.subMenu .wrapFilter{
+	position: relative;
+	display: inline-block;
+}
+.subMenu .filter{
+    background-position: 0 -203px;
+}
+.subMenu .filter:hover{
+    background-position: 0 -571px;
+}
+#filterFields{
+	display: none;
+    text-align: left;
+    padding: 15px;
+    position: absolute;
+    z-index: 9;
+    top: 30px;
+    right: -85px;
+    width: 200px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.2);
+}
+#filterFields input[type="checkbox"], #filterFields label{
+	cursor: pointer;
+}
+#filterFields input[type="button"]{
+	background: none;
+    border: none;
+    text-decoration: underline;
+    font-weight: bold;
+	margin-top: 10px;
+}
+#filterFields input[type="checkbox"], #settings .bugsSettings + div input[type="checkbox"]{
+	margin-right: 5px;
+}
+.subMenu .search{
+	display: inline-block;
+	margin-bottom: 0;
+}
+.subMenu .search input{
+    background-position: 175px -145px;
+    display: inline-block;
+    background-color: #f3f3f3;
+    padding-right: 35px;
+}
+.subMenu input[name='search']{
+    border-radius: 6px;
+    border-style: none;
+    background: #EEE;
+    height: 20px;
+    margin-top: 2px;
+    vertical-align: top;
+}
+/***********************
+          Login
+***********************/
+.popupLogin {
+    display: none;
+    position: absolute;
+    z-index: 99;
+    width: 100%;
+    min-height: 1000px;
+    background-color: rgba(0,0,0,0.62);    
+    text-align: center;
+}
+.loginContent
+{
+    padding: 20px;
+	position: relative;
+}
+.loginHeader{
+	width: 400px;
+    font-size: 30px;
+    line-height: 70px;
+    background: #5092bd;
+    color: #fff;
+}
+.login {
+    display: inline-block;
+    /*background-color: #ccc;*/
+    margin: 250px auto;
+    background: #EBEBEB;
+    width: 400px;
+}
+.login input
+{
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    border-width: 1px;
+    border-style: solid;
+	padding: 16px;
+	font-size: 20px
+}
+.login input[type='text'], .login input[type='password']
+{
+    background: #fff;
+    border-color: #bbb;
+    color: #555;
+}
+.login input[type="button"]
+{
+    background: #5092bd;
+    color: #fff;
+    margin-top: 10px;
+}
+.login .errorMessage
+{
+    color: Red;
+    font-size: 18px;
+    visibility: hidden;
+    display: block;
+	top: 165px;
+    position: absolute;
+}
+.login .loading{
+    background: none;
+    background-position: center;
+    height: 55px;
+	display: block;
+}
+
+
+.content
+{
+    background-color: #f3f3f3;
+    min-height: 750px;
+	height: auto;
+}
+.container
+{
+    width: 1300px;
+    margin: 0 auto;
+    padding: 20px 0;
+    
+}
+.sprite {
+    background-image: url('../Media/images/sprite.png') !important;
+    background-repeat: no-repeat;
+}
+
+#settings, .designs, .tasks, .bugs, .design, .task, .bug, #videoWrapper{
+    padding: 20px;
+    display:none;
+    width: 1000px;
+    min-height: 700px;
+    /*border-radius: 20px;*/
+    background-color: #fff;
+    margin: 0 auto;
+    box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.2);
+}
+.designs, .tasks, .bugs{
+	width: 1200px;
+}
+
+/***********************
+          Forms
+***********************/
+h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.form-control, input[type="file"]{
+    width: auto;
+    display: inline-block;
+}
+.btn {
+    margin-top: 30px;
+}
+form label {
+    min-width: 100px;
+}
+.save, .close
+{
+    height: 30px;
+    background: none;
+}
+/***********************
+          Tables
+***********************/
+table{
+	border: #ddd 1px solid;
+	border-right: none!important;
+}
+tr{
+    cursor: pointer;
+	border: none!important;
+}
+tr:nth-of-type(odd) {
+    background-color: #f9f9f9!important;
+}
+tr:nth-of-type(even), thead tr.tablesorter-headerRow{
+    background-color: #fff!important;
+}
+th, td {
+    max-width: 180px;
+    overflow: hidden;
+	border-right: 1px solid #ddd!important;
+}
+td {
+    height: 39px;
+	border-top: none!important;
+}
+th {
+    background: url('../Media/images/sprite.png') no-repeat;
+    padding-left: 15px;
+    background-position: 12px -83px;
+    cursor: pointer;
+	font-weight: bold;
+	border-bottom: 1px solid #ddd!important;
+}
+th:hover{
+	background-position: 12px -722px;
+}
+th div{
+	padding-left: 23px;
+}
+table td a{
+	color: #337ab7!important;
+}
+table td a:hover{
+    color: #23527c!imporatnt;
+	text-decoration: underline;
+}
+.row:before{
+    display: none;
+}
+.dueDateColors .passedObject{
+   background-color: #f2dede !important;
+}
+
+.dueDateColors .todayObject{
+   background-color: #fcf8e3 !important;
+}
+
+.dueDateColors .doneObject {
+   background-color: #ccc !important;
+}
+
+.dueDateColors .closeObject {
+   background-color: #b2d6c5 !important;
+}
+/***********************
+          Settings
+***********************/
+#settings #accordion, #settings .ui-widget input, #settings select{
+	font-family: 'Open Sans', Sans-Serif;
+}
+#settings select {
+    padding: 4px 12px;
+}
+#settings .ui-state-default .ui-icon{
+	width: 25px;
+	height: 25px;
+}
+#settings .usersSettings.ui-state-default .ui-icon{
+	background-position: 0 -295px;
+}
+#settings .usersSettings.ui-state-active .ui-icon, #settings .usersSettings.ui-state-default:hover .ui-icon{
+	background-position: 0 -763px;
+}
+#settings .categoriesSettings.ui-state-default .ui-icon{
+	background-position: 0 -445px;
+}
+#settings .categoriesSettings.ui-state-active .ui-icon, #settings .categoriesSettings.ui-state-default:hover .ui-icon{
+	background-position: 0 -791px;
+}
+#settings .bugsSettings.ui-state-default .ui-icon{
+	background-position: 0 -356px;
+}
+#settings .bugsSettings.ui-state-active .ui-icon, #settings .bugsSettings.ui-state-default:hover .ui-icon{
+	background-position: 0 -818px;
+}
+#settings #userForm label{
+	width: 110px;
+}
+#settings .btn{
+	margin-bottom: 20px;
+}
+#settings .saveSettings, #editCategory {
+    margin-top: 20px;
+}
+#settings #userForm, #addCategoryForm, #settings #editCategory, #loading, #videoWrapper{
+	display: none;
+}
+.message{
+    display: none;
+	background-color: rgba(80, 146, 189, 0.69);
+    padding: 10px;
+    font-size: 14px;
+}
+/***********************
+          General
+***********************/
+#bugFile {
+    width: 200px;
+    height: 70px;
+    padding: 20px;
+    border: 3px dashed #ccc;
+    display: inline-block;
+}
+
+#bugFile > span {
+    vertical-align: sub;
+}
+
+/*#loading {
+	background: url('../Media/images/loader.gif') center no-repeat;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+}*/
+/***********************
+          Video
+***********************/
+#videoWrapper{
+	text-align: center;
+	position: relative;
+}
+#videoWrapper .message, #controls{
+	width: 800px;
+	margin: 20px auto;
+}
+#videoWrapper .message{
+	display: block!important;
+	}
+#controls{
+	background: #eee;
+	margin-top: 10px;
+}
+#overlayVideo{
+	background-color: #000;
+    opacity: 0.7;
+    position: absolute;
+    height: 366px!important;
+    left: 100px;
+}
+video, #overlayVideo{
+    width: 800px;
+    height: 486px;
+}
+#controls > *{
+	margin: 5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+#controls button, #exitVideo {
+    border: none;
+    background-color: transparent;
+    height: 25px;
+    width: 25px;
+}
+#controls #playVideo{
+    background-position: 0 -851px;	
+}
+#controls #mute{
+    background-position: 0 -950px;	
+}
+#controls #full{
+    background-position: 0 -983px;	
+}
+#progress{
+	width: 200px;
+	background-color: #fff;
+	padding: 1px;
+	height: 34px;
+	border-radius: 4px;
+}
+#played{    
+	width: 0px;
+    height: 26px;
+    background-color: #5092bd;
+    margin: 3px;
+	max-width: 192px;
+}
+#videoTimePass{
+	margin-right: 0;
+}
+#volume{
+    width: 80px;
+}
+#exitVideo{
+	background-position: 0 -1016px;
+	position: absolute;
+	top: 101px;
+    right: 107px;
+    z-index: 9;
+}

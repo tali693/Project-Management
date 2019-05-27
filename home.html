@@ -1,0 +1,396 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Project Management</title>
+
+    <script src="ThirdPartyCode/jquery-3.1.0.js"></script>
+    <script src="ThirdPartyCode/table.js"></script>
+    <!--<script src="ThirdPartyCode/jquery.tablesorter.pager.js"></script>-->
+    <script type="text/javascript" src="ThirdPartyCode/jquery.tablesorter.js"></script>
+    <script type="text/javascript" src="ThirdPartyCode/jquery.tablesorter_filter.js"></script>
+    <script type="text/javascript" src="ThirdPartyCode/jquery.tablesorter.widgets.js"></script>
+    <script type="text/javascript" src="ThirdPartyCode/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="ThirdPartyCode/jquery.ui.accordion.js"></script>
+    <script type="text/javascript" src="ThirdPartyCode/jquery-ui.js"></script>
+	<script type="text/javascript" src="ThirdPartyCode/jquery.validate.min.js"></script>
+
+    <link href="CSS/theme.green.css" rel="stylesheet" />
+    <!--<link href="CSS/jquery.tablesorter.pager.css" rel="stylesheet" />-->
+    <link href="CSS/bootstrap.css" rel="stylesheet" />
+    <link href="CSS/jquery-ui.css" rel="stylesheet" />
+    <link href="CSS/jquery.ui.theme.css" rel="stylesheet" />
+    <link href="CSS/jquery.ui.accordion.css" rel="stylesheet" />
+    <link href="CSS/style.css" rel="stylesheet" />
+	<link rel="icon" type="image/png" href="Media/images/favicon.png" />
+	
+    <script src="JS/DAL/DAL.js"></script>
+    <script src="JS/BL/UserStory.js"></script>
+    <script src="JS/BL/login.js"></script>
+    <script src="JS/BL/bugs.js"></script>
+    <script src="JS/BL/designs.js"></script>
+    <script src="JS/BL/tasks.js"></script>
+    <script src="JS/BL/users.js"></script>
+    <script src="JS/BL/categories.js"></script>
+    <script src="JS/BL/file.js"></script>
+	<script src="JS/BL/validation.js"></script>
+    <script src="JS/UI/video.js"></script>
+    <script src="JS/UI/general.js"></script>
+	
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <style id="filterTableStyle"></style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="popupLogin">
+            <div class="login">
+                <div class="loginHeader">Login</div>
+                <div class="loginContent">
+                    <input type="text" placeholder="User name" required/><br />
+                    <input type="password" placeholder="Password" required maxlength="10"/>
+                    <span class="loading"></span>
+                    <span class="errorMessage">Invalid details!</span>
+                    <input type="button" value="Login" />
+                </div>
+            </div>
+        </div>
+
+        <header id="header">
+			<div class="leftIconsHeader">
+				<span class="logout sprite" title="Logout"></span>
+				<span class="settings sprite" title="Settings"></span>
+				<span id="information" class="information sprite" title="information"></span>
+				<span id="currentUser"></span>
+			</div>
+			<img id="logo" src="Media/images/logo.png" />
+            <ul class="mainMenu">
+                <li id="designs">Designs</li>
+                <li id="tasks">Tasks</li>
+                <li id="bugs">Bugs</li>
+            </ul>
+            <div class="subMenu">
+                <span id="newObject" class="new sprite" title="New"></span>
+                <span class="dueDateFeedback sprite" title="Show feedback by date"></span>
+                <span class="sort sprite"></span>
+                <div class="wrapFilter" title="Filter fields">
+                    <span class="filter sprite"></span>
+                    <div id="filterFields" class="not-active">
+                        <form>
+                            <input id="btn_filter" type="button" value="Filter" />
+                        </form>
+                    </div>
+                </div>
+                <div class="form-group search">
+                    <input type="text" class="form-control sprite" id="search" placeholder="search...">
+                </div>
+            </div>
+        </header>
+        <div class="content">
+            <div class="container">
+                <img id="loading" />
+                <div id="settings">
+                    <div id="accordion">
+                        <h3 class="usersSettings">Users</h3>
+                        <div>
+                            <input id="addUser" class="btn" value="Add User" type="button" required>
+                            <input id="editUser" class="btn" value="Edit User" type="button" required>
+                            <form class="not-active" id="userForm">
+                                <div class="form-group">
+                                    <label for="firstName">First name</label>
+                                    <input type="text" class="form-control" id="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last name</label>
+                                    <input type="text" class="form-control" id="lastName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="appName">App name</label>
+                                    <input type="text" class="form-control" id="appName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="permission">permission</label>
+                                    <input type="text" class="form-control" id="permission" required>
+                                </div>
+                                <input id="saveUser" class="btn saveSettings" value="Save user" type="button">
+								<div class="message" id="messageUser"></div>
+                            </form>
+                        </div>
+                        <h3 class="categoriesSettings">Categories</h3>
+                        <div>
+                            <input id="addCategory" class="btn" value="Add category" type="button">
+                            <form id="addCategoryForm" class="not-active">
+                                <div class="form-group">
+                                    <label for="categoryName">Category name</label>
+                                    <input type="text" class="form-control" id="addedCategoryName">
+                                </div>
+                                <input class="btn saveSettings saveCategory" value="Save category" type="button">
+                            </form>
+                            <div>
+                                <label for="category">Choose category to edit:</label>
+                                <select class="form-control categoryList" id="category">
+                                    <option></option>
+                                </select>
+                                <form id="editCategory" class="not-active">
+                                    <div class="form-group">
+                                        <label for="categoryNewName">New category name</label>
+                                        <input type="text" class="form-control" id="categoryNewName">
+                                    </div>
+                                    <input class="btn saveSettings saveCategory" value="Save category" type="button">
+									<div class="message" id="messageCategory"></div>
+                                </form>
+                            </div>
+                        </div>
+                        <h3 class="bugsSettings">Bugs</h3>
+                        <div>
+                            <h2>Choose the fields for required field!</h2>
+                            <form>
+                                <input id="saveBugsSettings" class="btn saveSettings" value="Save bugs settings" type="button">
+                            </form>
+							<div class="message" id="messageBugsSettings"></div>
+                        </div>
+                    </div>
+                </div>
+				<section id="videoWrapper" class="informationVideo">
+					<div class="message">Watch the video in order to get more information about Project management!</div>
+					<button id="exitVideo" type="button" class="sprite"></button>
+					<div id="overlayVideo"></div>
+					<video id="video" poster="Media/images/logo-large.png">
+						<source src="Media/videos/instruction.mp4" type="video/mp4" />
+					</video>
+					<div id="controls">
+						<button id="playVideo" class="sprite" type="button"></button>
+						<div id="progress">
+							<div id="played"></div>
+						</div>
+						<span id="videoTimePass">00:00</span>
+						<span id="videoDuration"> / 00:00</span>
+						<button id="mute" class="sprite" type="button"></button>
+						<input id="volume" type="range" min="0" max="1" step="0.05" value="0.1" />
+						<button id="full" class="sprite" type="button"></button>
+					</div>
+				</section>
+        
+                <div class="designs">
+                    <!--<img id="loading" />-->
+                    <table id="designsList" class="tablesorter table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="number">#</th>
+                                <th class="name">Name</th>
+                                <th class="description">Description</th>
+                                <th class="category">Category</th>
+                                <th class="owner">Owner</th>
+                                <th class="file">File</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="tasks">
+                    <table id="tasksList" class="tablesorter table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="number">#</th>
+                                <th class="name">Name</th>
+                                <th class="description">Description</th>
+                                <th class="status">Status</th>
+                                <th class="dueDate">Due Date</th>
+                                <th class="category">Category</th>
+                                <th class="assignTo">Assign</th>
+                                <th class="owner">Owner</th>
+                                <th class="file">File</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="bugs">
+                    <!--<img id="loading" />-->
+                    <table id="bugsList" class="tablesorter table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="number">#</th>
+                                <th class="name">Name</th>
+                                <th class="description">Description</th>
+                                <th class="status">Status</th>
+                                <th class="priority">Priority</th>
+                                <th class="dueDate">Due Date</th>
+                                <th class="category">Category</th>
+                                <th class="files">Files</th>
+                                <th class="assignTo">Assign</th>
+                                <th class="owner">Owner</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+                <div class="design">
+                    <h2>Design</h2>
+                    <form id="designForm">
+                        <div class="form-group">
+                            <label for="designNum">Number</label>
+                            <input type="text" class="form-control" id="designNum" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="designName">Name</label>
+                            <input type="text" class="form-control" id="designName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="designCategory">Category</label>
+                            <select class="form-control categoryList" id="designCategory">
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="designDescription">Description</label>
+                            <textarea class="form-control" rows="3" id="designDescription" cols="50"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="designOwner">Created By</label>
+                            <input type="text" class="form-control" id="designOwner" readonly>
+                        </div>
+                        <div class="form-group fileWrapper">
+                            <label for="designFile">Files</label>
+                            <input type="file" class="form-control" id="designFile" multiple >
+                            <br />
+                        </div>
+                        <br/>
+                        <input id="saveDesign" class="btn" type="button" value="Save and Close" />
+                        <input id="closeDesign" class="btn" type="button" value="Close" />
+                    </form>
+                </div>
+
+                <div class="task">
+                    <h2>Task</h2>
+
+                    <form id="taskForm">
+                        <div class="form-group">
+                            <label for="taskNum">Number</label>
+                            <input type="text" class="form-control" id="taskNum" name="taskNum" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskName">Name</label>
+                            <input type="text" class="form-control" id="taskName" name="taskName" required>
+							<label id="errorTaskName">שדה חובה</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskDescription">Description</label>
+                            <textarea class="form-control" rows="3" id="taskDescription" cols="50"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskCategory">Category</label>
+                            <select class="form-control categoryList" id="taskCategory">
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskStatus">Status</label>
+                            <select class="form-control" id="taskStatus">
+                                <option value="Ready">Ready</option>
+                                <option value="Development">Development</option>
+                                <option value="Debug">Debug</option>
+                                <option value="Done">Done</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskDueDate">Due date</label>
+                            <input type="date" class="form-control ignore" id="taskDueDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="taskAssign">Assign To</label>
+                            <select class="form-control usersList" id="taskAssign">
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskOwner">Created By</label>
+                            <input type="text" class="form-control" id="taskOwner"  name="taskOwner" readonly>
+                        </div>
+                        <br />
+
+                        <div class="form-group fileWrapper" data-id="task">
+                            <label for="taskFile">Files</label>
+                            <input type="file" class="form-control" id="taskFile" multiple>
+                            <br />
+
+                        </div>
+                        <br/>
+                        <input id="saveTask" class="btn" type="button" value="Save and Close" />
+                        <input id="closeTask" class="btn" type="button" value="Close" />
+                    </form>
+                </div>
+
+                <div class="bug">
+                    <h2>Bug</h2>
+
+                    <form id="bugForm">
+                        <div class="form-group">
+                            <label for="exampleInpbugNumutEmail3">Number</label>
+                            <input type="text" class="form-control" id="bugNum" name="bugNum" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="bugName">Name</label>
+                            <input type="text" class="form-control" id="bugName" name="bugName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bugCategory">Category</label>
+                            <select class="form-control categoryList" id="bugCategory"name="bugCategory">
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="bugDetails">Description</label>
+                            <textarea class="form-control" rows="3" id="bugDetails" cols="50" name="bugDetails" ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="bugStatus">Status</label>
+                            <select class="form-control" id="bugStatus" name="bugStatus">
+                                <option value="Open">Open</option>
+                                <option value="Fixed">Fixed</option>
+                                <option value="Reopen">Reopen</option>
+                                <option value="Close">Close</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="bugPriority">Priority</label>
+                            <select class="form-control" id="bugPriority" name="bugPriority">
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                                <option value="Critical">Critical</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="bugDueDate">Due date</label>
+                            <input type="date" autofocus="" class="form-control ignore" id="bugDueDate" name="bugDueDate" >
+                        </div>
+                        <div class="form-group">
+                            <label for="bugAssign">Assign</label>
+                            <select class="form-control usersList" id="bugAssign" name="bugAssign">
+                                <option>Assign To</option>
+                            </select>
+                        </div>
+                        <div class="form-group fileWrapper">
+                            <label for="bugFile">Files</label>
+                            <div ondragover="allowDrop(event);" ondrop="drop(event)" class="file-container" id="bugFile">
+                                <span>drag file here</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="bugOwner">Created By</label>
+                            <input type="text" class="form-control" id="bugOwner" readonly name="bugOwner" >
+                        </div>
+                        <input id="saveBug" class="btn" value="Save and Close" type="button" />
+                        <input id="closeBug" class="btn" value="Close" type="button" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
